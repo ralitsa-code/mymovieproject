@@ -18,7 +18,7 @@ class ReviewForm(forms.ModelForm):
         already_reviewed = Review.objects.filter(
             user=self.user,
             movie=self.movie
-        ).exists()
+        ).exclude(pk=self.instance.pk).exists()
 
         if already_reviewed:
             raise forms.ValidationError(

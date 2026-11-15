@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Review | MyMovie{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/review_create.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="review-create">
+        <div class="review-container">
+            <h1>Edit Your Review</h1>
+            <p class="review-subtitle">Update your thoughts about this movie.</p>
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <button type="submit" class="button button-primary">
+                    Save Changes
+                </button>
+            </form>
+        </div>
+    </section>
+{% endblock %}

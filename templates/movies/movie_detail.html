@@ -9,25 +9,6 @@
     <section class="movie-detail">
         <div class="container">
             <h1>{{ movie.title }}</h1>
-            <section class="reviews">
-                <h2>Reviews</h2>
-
-                {% if user.is_authenticated %}
-                    <a href="{% url 'review-create' movie.pk %}" class="button button-primary">
-                        Create Review
-                    </a>
-                {% endif %}
-
-                {% for review in movie.review_set.all %}
-                    <div class="review-card">
-                        <h3>{{ review.user.email }}</h3>
-                        <p>Rating: {{ review.rating }}/5</p>
-                        <p>{{ review.review }}</p>
-                    </div>
-                {% empty %}
-                    <p>No reviews yet.</p>
-                {% endfor %}
-            </section>
 
             <img src="{{ movie.picture.url }}" alt="{{ movie.title }}">
 
@@ -59,12 +40,27 @@
             <p><strong>Description:</strong> {{ movie.description }}</p>
             <section class="reviews">
                 <h2>Reviews</h2>
+                <a href="{% url 'review-create' movie.pk %}" class="button button-primary">
+                    Create Review
+                </a>
 
                 {% for review in movie.review_set.all %}
+
                     <div class="review-card">
                         <h3>{{ review.user.email }}</h3>
                         <p>Rating: {{ review.rating }}/5</p>
                         <p>{{ review.review }}</p>
+                        {% if user.is_authenticated and review.user == user %}
+
+                            <a href="{% url 'review-edit' pk=movie.pk review_id=review.pk %}"
+                               class="button button-primary">
+                                Edit Review
+                            </a>
+                            <a href="{% url 'review-delete' pk=movie.pk review_id=review.pk %}"
+                               class="button button-outline">
+                                Delete Review
+                            </a>
+                        {% endif %}
                     </div>
                 {% empty %}
                     <p>No reviews yet.</p>

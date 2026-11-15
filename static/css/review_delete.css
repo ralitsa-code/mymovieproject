@@ -1,0 +1,38 @@
+
+.review-create {
+    max-width: 700px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.review-container {
+    background-color: #181B27;
+    border: 1px solid #292D3D;
+    border-radius: 12px;
+    padding: 35px;
+}
+
+.review-container h1 {
+    color: #F5F5F5;
+    margin-bottom: 20px;
+}
+
+.review-container p {
+    color: #A0A3B1;
+    margin-bottom: 18px;
+    line-height: 1.6;
+}
+
+.review-container form {
+    margin-top: 30px;
+}
+
+.review-container button {
+    cursor: pointer;
+}
+
+.review-container .button {
+    display: inline-block;
+    text-decoration: none;
+    margin-right: 10px;
+}

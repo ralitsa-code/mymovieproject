@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Review | MyMovie{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/review_delete.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="review-create">
+        <div class="review-container">
+            <h1>Delete Your Review</h1>
+            <p>Review: {{ object.review }}</p>
+            <p>Rating: {{ object.rating }}</p>
+            <p>Are you sure you want to delete this review?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="button button-primary">
+                    Confirm Delete
+                </button>
+                <a href="{% url 'movie-detail' object.movie.pk %}"
+                   class="button button-outline">
+                    Cancel
+                </a>
+            </form>
+
+        </div>
+    </section>
+{% endblock %}
