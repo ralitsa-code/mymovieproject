@@ -1,0 +1,52 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/movie_list.css' %}">
+{% endblock %}
+{% block title %}Movies | MyMovie{% endblock %}
+
+{% block content %}
+<section class="movies-section">
+    <div class="container">
+        <h1>Discover Movies</h1>
+
+        <div class="movies-grid">
+            {% for movie in movies %}
+                <article class="movie-card">
+                    <div class="movie-poster">
+                        <img src="{{ movie.picture.url }}" alt="{{ movie.title }}">
+                    </div>
+
+                    <div class="movie-info">
+                        <h2><a href="{% url 'movie-detail' movie.pk %}">{{ movie.title }}</h2>
+                        <p class="movie-year">{{ movie.year }}</p>
+
+                        <p>
+                            <strong>Genre:</strong>
+                            {% for genre in movie.genre.all %}
+                                {{ genre.name }}{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                Not specified
+                            {% endfor %}
+                        </p>
+
+                        <p>
+                            <strong>Director:</strong>
+                            {% for director in movie.director.all %}
+                                {{ director.first_name }} {{ director.last_name }}{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                Not specified
+                            {% endfor %}
+                        </p>
+
+                        <p class="movie-description">{{ movie.description }}</p>
+                    </div>
+                </article>
+            {% empty %}
+                <p>No movies available yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

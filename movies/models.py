@@ -26,6 +26,23 @@ class Director(models.Model):
 
 
 class Movie(models.Model):
+
+    PENDING = 'Pending'
+    APPROVED = 'Approved'
+    REJECTED = 'Rejected'
+
+    STATUS_CHOICES = (
+        (PENDING, 'Pending'),
+        (APPROVED, 'Approved'),
+        (REJECTED, 'Rejected'),
+    )
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default=PENDING,
+    )
+
     title = models.CharField(max_length=200)
     picture = models.ImageField(upload_to='movies')
     genre = models.ManyToManyField(Genre, blank=True)

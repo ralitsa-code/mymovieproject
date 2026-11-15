@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ movie.title }} | MyMovie{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/movie_detail.css' %}">
+{% endblock %}
+{% block content %}
+    <section class="movie-detail">
+        <div class="container">
+            <h1>{{ movie.title }}</h1>
+            <section class="reviews">
+                <h2>Reviews</h2>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'review-create' movie.pk %}" class="button button-primary">
+                        Create Review
+                    </a>
+                {% endif %}
+
+                {% for review in movie.review_set.all %}
+                    <div class="review-card">
+                        <h3>{{ review.user.email }}</h3>
+                        <p>Rating: {{ review.rating }}/5</p>
+                        <p>{{ review.review }}</p>
+                    </div>
+                {% empty %}
+                    <p>No reviews yet.</p>
+                {% endfor %}
+            </section>
+
+            <img src="{{ movie.picture.url }}" alt="{{ movie.title }}">
+
+            <p><strong>Year:</strong> {{ movie.year }}</p>
+            <p>
+                <strong>Genres:</strong>
+                {% for genre in movie.genre.all %}
+                    {{ genre.name }}{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                    Not specified
+                {% endfor %}
+            </p>
+            <p>
+                <strong>Directors:</strong>
+                {% for director in movie.director.all %}
+                    {{ director.first_name }} {{ director.last_name }}{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                    Not specified
+                {% endfor %}
+            </p>
+            <p>
+                <strong>Actors:</strong>
+                {% for actor in movie.actors.all %}
+                    {{ actor.first_name }} {{ actor.last_name }}{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                    Not specified
+                {% endfor %}
+            </p>
+            <p><strong>Description:</strong> {{ movie.description }}</p>
+            <section class="reviews">
+                <h2>Reviews</h2>
+
+                {% for review in movie.review_set.all %}
+                    <div class="review-card">
+                        <h3>{{ review.user.email }}</h3>
+                        <p>Rating: {{ review.rating }}/5</p>
+                        <p>{{ review.review }}</p>
+                    </div>
+                {% empty %}
+                    <p>No reviews yet.</p>
+                {% endfor %}
+            </section>
+            {% if user == movie.user %}
+                <a href="{% url 'movie-update' movie.pk %}" class="button button-primary">
+                    Edit Movie
+                </a>
+                <a href="{% url 'movie-delete' movie.pk %}" class="button button-outline">
+                    Delete Movie
+                </a>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

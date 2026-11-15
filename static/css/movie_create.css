@@ -1,0 +1,100 @@
+
+.movie-form-section {
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.movie-form {
+    width: 100%;
+    max-width: 700px;
+    padding: 35px;
+    background-color: #181B27;
+    border: 1px solid #292D3D;
+    border-radius: 14px;
+}
+
+.movie-form-container h1 {
+    margin-bottom: 30px;
+    color: #F5F5F5;
+    font-size: 28px;
+}
+
+.movie-form p {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 22px;
+}
+
+.movie-form label {
+    color: #F5F5F5;
+    font-weight: 500;
+}
+
+.movie-form input,
+.movie-form textarea,
+.movie-form select {
+    width: 100%;
+    padding: 12px 14px;
+    background-color: #10121A;
+    border: 1px solid #292D3D;
+    border-radius: 8px;
+    color: #F5F5F5;
+    font: inherit;
+}
+
+.movie-form input:focus,
+.movie-form textarea:focus,
+.movie-form select:focus {
+    outline: none;
+    border-color: #A855F7;
+}
+
+.movie-form input[type="checkbox"] {
+    width: auto;
+    accent-color: #A855F7;
+}
+
+.movie-form input[type="file"] {
+    padding: 10px;
+}
+
+.movie-form button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 13px;
+    background-color: #A855F7;
+    border: none;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.movie-form button:hover {
+    background-color: #9333EA;
+}
+
+.movie-form .helptext {
+    color: #9CA3AF;
+    font-size: 13px;
+}
+
+.movie-form .errorlist {
+    color: #F87171;
+    font-size: 14px;
+    list-style: none;
+}
+
+@media (max-width: 600px) {
+    .movie-form-section {
+        padding: 30px 15px;
+    }
+
+    .movie-form {
+        padding: 22px;
+    }
+}
