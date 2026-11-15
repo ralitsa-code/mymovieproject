@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Add Actor | MyMovie{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/movie_create.css' %}">
+{% endblock %}
+{% block content %}
+    <section class="movie-form-section">
+        <form class="movie-form" method="post">
+            <div class="movie-form-container">
+                <h1>Add an Actor</h1>
+                {% csrf_token %}
+                {{ form.as_p }}
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+{% endblock %}

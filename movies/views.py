@@ -1,8 +1,15 @@
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView, DeleteView
-from movies.models import Movie
-from movies.forms import MovieCreateForm, MovieDeleteForm
+from movies.models import Movie, Genre, Actor, Director
+from movies.forms import MovieCreateForm, MovieDeleteForm, GenreCreateForm, ActorCreateForm, DirectorCreateForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+
+class UserSubmissionMixin:
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 
 class HomeView(TemplateView):
     template_name = 'movies/home.html'
@@ -16,17 +23,11 @@ class MovieListView(ListView):
         approved_movies = super( ).get_queryset().filter(status=Movie.APPROVED)
         return approved_movies
 
-class MovieCreateView(LoginRequiredMixin, CreateView):
+class MovieCreateView(LoginRequiredMixin, UserSubmissionMixin, CreateView):
     model = Movie
     form_class = MovieCreateForm
     template_name = 'movies/movie_create.html'
     success_url = reverse_lazy('home')
-
-
-    def form_valid(self, form):
-        current_user = self.request.user
-        form.instance.user = current_user
-        return super().form_valid(form)
 
 
 class MovieDetailView(DetailView):
@@ -59,8 +60,31 @@ class MovieDeleteView(LoginRequiredMixin, DeleteView):
     def get_queryset(self):
         user_movies = super( ).get_queryset().filter(user=self.request.user)
         return user_movies
-    
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['instance'] = self.object
         return kwargs
+
+
+
+
+class GenreCreateView(LoginRequiredMixin, UserSubmissionMixin, CreateView):
+    model = Genre
+    form_class = GenreCreateForm
+    template_name = 'movies/genre_create.html'
+    success_url = reverse_lazy('movie-list')
+
+
+class DirectorCreateView(LoginRequiredMixin, UserSubmissionMixin, CreateView):
+    model = Director
+    form_class = DirectorCreateForm
+    template_name = 'movies/director_create.html'
+    success_url = reverse_lazy('movie-list')
+
+class ActorCreateView(LoginRequiredMixin, UserSubmissionMixin, CreateView):
+    model = Actor
+    form_class = ActorCreateForm
+    template_name = 'movies/actor_create.html'
+    success_url = reverse_lazy('movie-list')
+

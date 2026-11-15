@@ -9,4 +9,7 @@ urlpatterns = [
     path('movies/<int:pk>/', views.MovieDetailView.as_view(), name='movie-detail'),
     path('movies/<int:pk>/edit/', views.MovieUpdateView.as_view(), name='movie-update'),
     path('movies/<int:pk>/delete/', views.MovieDeleteView.as_view(), name='movie-delete'),
+    path('movies/add_genre/', views.GenreCreateView.as_view(), name='genre-create'),
+    path('movies/add_actor/', views.ActorCreateView.as_view(), name='actor-create'),
+    path('movies/add_director/', views.DirectorCreateView.as_view(), name='director-create'),
 ]

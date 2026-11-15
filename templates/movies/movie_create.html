@@ -6,13 +6,22 @@
     <link rel="stylesheet" href="{% static 'css/movie_create.css' %}">
 {% endblock %}
 {% block content %}
-    
+
     <section class="movie-form-section">
         <form class="movie-form" method="post" enctype="multipart/form-data">
             <div class="movie-form-container">
                 <h1>Add a Movie</h1>
                 {% csrf_token %}
                 {{ form.as_p }}
+                <a href="{% url 'genre-create' %}" class="add-genre-button">
+                    Suggest a new genre
+                </a>
+                <a href="{% url 'actor-create' %}" class="add-genre-button">
+                    Suggest a new actor
+                </a>
+                <a href="{% url 'director-create' %}" class="add-genre-button">
+                    Suggest a new director
+                </a>
             </div>
             <button type="submit">Submit Movie</button>
         </form>

@@ -3,29 +3,7 @@ from django.contrib.auth import get_user_model
 
 UserModel = get_user_model()
 
-
-class Genre(models.Model):
-    name = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.name
-
-class Actor(models.Model):
-    first_name = models.CharField(max_length=200)
-    last_name = models.CharField(max_length=200)
-
-    def __str__(self):
-        return f'{self.first_name} {self.last_name}'
-
-class Director(models.Model):
-    first_name = models.CharField(max_length=200)
-    last_name = models.CharField(max_length=200)
-
-    def __str__(self):
-        return f'{self.first_name} {self.last_name}'
-
-
-class Movie(models.Model):
+class ApprovalModel(models.Model):
 
     PENDING = 'Pending'
     APPROVED = 'Approved'
@@ -43,6 +21,41 @@ class Movie(models.Model):
         default=PENDING,
     )
 
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='+'
+    )
+
+    class Meta:
+        abstract = True
+
+
+class Genre(ApprovalModel):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+
+class Actor(ApprovalModel):
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
+
+class Director(ApprovalModel):
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
+
+class Movie(ApprovalModel):
     title = models.CharField(max_length=200)
     picture = models.ImageField(upload_to='movies')
     genre = models.ManyToManyField(Genre, blank=True)
