@@ -12,4 +12,6 @@ urlpatterns = [
     path('movies/add_genre/', views.GenreCreateView.as_view(), name='genre-create'),
     path('movies/add_actor/', views.ActorCreateView.as_view(), name='actor-create'),
     path('movies/add_director/', views.DirectorCreateView.as_view(), name='director-create'),
+    path('api/movies/', views.MovieListAPIView.as_view(), name='api-movie-list'),
+    path('my-movies/', views.MyMoviesView.as_view(), name='my-movies'),
 ]

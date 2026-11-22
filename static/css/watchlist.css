@@ -1,0 +1,150 @@
+
+.watchlist-section {
+    padding: 60px 0 80px;
+    min-height: 70vh;
+}
+
+.watchlist-section h1 {
+    color: #F5F5F5;
+    font-size: 2.4rem;
+    margin-bottom: 10px;
+}
+
+.section-description {
+    color: #A7A9B7;
+    font-size: 1rem;
+    margin-bottom: 35px;
+}
+
+.watchlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 28px;
+}
+
+.watchlist-card {
+    background-color: #181B27;
+    border: 1px solid #292D3D;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.watchlist-card:hover {
+    transform: translateY(-5px);
+    border-color: #A855F7;
+}
+
+.watchlist-poster-link {
+    display: block;
+    width: 100%;
+    height: 300px;
+    background-color: #292D3D;
+}
+
+.watchlist-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.no-poster {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #A7A9B7;
+    font-size: 0.9rem;
+}
+
+.watchlist-info {
+    padding: 18px;
+}
+
+.watchlist-info h2 {
+    font-size: 1.15rem;
+    margin: 0 0 8px;
+}
+
+.watchlist-info h2 a {
+    color: #F5F5F5;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.watchlist-info h2 a:hover {
+    color: #A855F7;
+}
+
+.watchlist-info p {
+    color: #A7A9B7;
+    margin-bottom: 18px;
+}
+
+.remove-watchlist-button {
+    width: 100%;
+    padding: 10px 14px;
+    background-color: transparent;
+    color: #A855F7;
+    border: 1px solid #A855F7;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.remove-watchlist-button:hover {
+    background-color: #A855F7;
+    color: #FFFFFF;
+}
+
+.empty-watchlist {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #181B27;
+    border: 1px solid #292D3D;
+    border-radius: 12px;
+}
+
+.empty-watchlist h2 {
+    color: #F5F5F5;
+    margin-bottom: 12px;
+}
+
+.empty-watchlist p {
+    color: #A7A9B7;
+    margin-bottom: 25px;
+}
+
+@media (max-width: 600px) {
+    .watchlist-section {
+        padding: 35px 0 50px;
+    }
+
+    .watchlist-section h1 {
+        font-size: 2rem;
+    }
+
+    .watchlist-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .watchlist-poster-link {
+        height: 220px;
+    }
+
+    .watchlist-info {
+        padding: 12px;
+    }
+
+    .watchlist-info h2 {
+        font-size: 1rem;
+    }
+
+    .remove-watchlist-button {
+        font-size: 0.8rem;
+        padding: 9px 6px;
+    }
+}

@@ -1,3 +1,4 @@
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -28,10 +29,15 @@
 
         <div class="header-actions">
             {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}">My Profile</a>
+                <a href="{% url 'my-movies' %}">My Movies</a>
+                <a href="{% url 'favorites' %}">Favorites</a>
+                <a href="{% url 'watchlist' %}">Watchlist</a>
                 <a href="{% url 'movie-create' %}">Add Movie</a>
+
                 <span class="welcome-user">
-                        Hello, {{ user.email }}!
-                    </span>
+                    Hello, {{ user.email }}!
+                </span>
 
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}

@@ -1,0 +1,69 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Watchlist | MyMovie{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/watchlist.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="watchlist-section">
+    <div class="container">
+        <h1>My Watchlist</h1>
+        <p class="section-description">
+            Movies you want to watch.
+        </p>
+
+        {% if object_list %}
+            <div class="watchlist-grid">
+                {% for item in object_list %}
+                    <div class="watchlist-card">
+                        <a href="{% url 'movie-detail' item.movie.pk %}"
+                           class="watchlist-poster-link">
+
+                            {% if item.movie.picture %}
+                                <img src="{{ item.movie.picture.url }}"
+                                     alt="{{ item.movie.title }}"
+                                     class="watchlist-poster">
+                            {% else %}
+                                <div class="no-poster">
+                                    No poster available
+                                </div>
+                            {% endif %}
+                        </a>
+
+                        <div class="watchlist-info">
+                            <h2>
+                                <a href="{% url 'movie-detail' item.movie.pk %}">
+                                    {{ item.movie.title }}
+                                </a>
+                            </h2>
+
+                            <p>{{ item.movie.year }}</p>
+
+                            <form method="post"
+                                  action="{% url 'watchlist_remove' item.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="remove-watchlist-button">
+                                    Remove from Watchlist
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-watchlist">
+                <h2>Your watchlist is empty</h2>
+                <p>You haven't added any movies to your watchlist yet.</p>
+
+                <a href="{% url 'movie-list' %}" class="button button-primary">
+                    Explore Movies
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

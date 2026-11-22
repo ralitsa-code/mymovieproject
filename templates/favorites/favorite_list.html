@@ -1,0 +1,67 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Favorites | MyMovie{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/favorites.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="favorites-section">
+    <div class="container">
+        <h1>My Favorites</h1>
+        <p class="section-description">
+            Your personal collection of favorite movies.
+        </p>
+
+        {% if object_list %}
+            <div class="favorites-grid">
+                {% for favorite in object_list %}
+                    <div class="favorite-card">
+                        <a href="{% url 'movie-detail' favorite.movie.pk %}"
+                           class="favorite-poster-link">
+                            {% if favorite.movie.picture %}
+                                <img src="{{ favorite.movie.picture.url }}"
+                                     alt="{{ favorite.movie.title }}"
+                                     class="favorite-poster">
+                            {% else %}
+                                <div class="no-poster">
+                                    No poster available
+                                </div>
+                            {% endif %}
+                        </a>
+
+                        <div class="favorite-info">
+                            <h2>
+                                <a href="{% url 'movie-detail' favorite.movie.pk %}">
+                                    {{ favorite.movie.title }}
+                                </a>
+                            </h2>
+
+                            <p>{{ favorite.movie.year }}</p>
+
+                            <form method="post"
+                                  action="{% url 'favorite_remove' favorite.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="remove-favorite-button">
+                                    Remove from Favorites
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-favorites">
+                <h2>No favorites yet</h2>
+                <p>You haven't added any favorites yet.</p>
+                <a href="{% url 'movie-list' %}" class="button button-primary">
+                    Explore Movies
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

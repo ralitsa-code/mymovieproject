@@ -1,13 +1,10 @@
-from django.contrib.auth import authenticate, login, get_user_model
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.views import LoginView
-from django.shortcuts import render, redirect
+from django.contrib.auth import login, get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from sqlalchemy.sql.functions import user
-
-from accounts.forms import RegisterForm
+from django.views.generic import CreateView, DetailView, UpdateView
+from accounts.forms import RegisterForm, ProfileForm
 from django.contrib.auth.models import Group
+from accounts.models import Profile
 
 UserModel = get_user_model()
 
@@ -25,4 +22,21 @@ class RegisterAppUserView(CreateView):
         return response
 
 
+class ProfileView(LoginRequiredMixin, DetailView):
+    model = Profile
+    template_name = 'accounts/profile.html'
+
+    def get_object(self):
+        user = self.request.user
+        return user.profile
+
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+    model = Profile
+    form_class = ProfileForm
+    template_name = 'accounts/profile_update.html'
+    success_url = reverse_lazy('profile')
+
+    def get_object(self):
+        user = self.request.user
+        return user.profile
 

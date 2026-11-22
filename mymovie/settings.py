@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'reviews',
     'watchlist',
     'favorites',
+    'rest_framework',
+    'drf_spectacular',
+    'drf_spectacular_sidecar',
 ]
 
 UNFOLD = {
@@ -84,6 +87,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mymovie.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'MyMovie API',
+    'DESCRIPTION': 'Share your love for movies',
+    'VERSION': '1.0.0',
+    'SWAGGER_UI_DIST': 'SIDECAR',
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+}
 
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases

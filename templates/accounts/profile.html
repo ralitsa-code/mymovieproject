@@ -1,0 +1,46 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ profile.first_name }} {{ profile.last_name }} | MyMovie{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="profile-section">
+    <div class="container">
+        <div class="profile-card">
+            <div class="profile-picture-container">
+                {% if profile.profile_picture %}
+                    <img src="{{ profile.profile_picture }}"
+                         alt="{{ profile.first_name }} {{ profile.last_name }}"
+                         class="profile-picture">
+                {% else %}
+                    <div class="profile-picture-placeholder">
+                        {{ profile.first_name|first|upper }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="profile-info">
+                <h1>{{ profile.first_name }} {{ profile.last_name }}</h1>
+                <p class="profile-label">MyMovie Member</p>
+
+                <div class="profile-details">
+                    <p>
+                        <strong>Date of birth:</strong>
+                        {{ profile.date_of_birth|default:"Not provided" }}
+                    </p>
+                </div>
+
+                <a href="{% url 'profile_update' %}"
+                   class="button button-primary">
+                    Edit Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

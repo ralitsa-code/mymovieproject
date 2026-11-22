@@ -1,3 +1,4 @@
+from datetime import date
 from django import forms
 from movies.models import Movie, Genre, Actor, Director
 
@@ -9,6 +10,12 @@ class MovieCreateForm(forms.ModelForm):
         self.fields['actors'].queryset = Actor.objects.filter(status=Actor.APPROVED)
         self.fields['director'].queryset = Director.objects.filter(status=Director.APPROVED)
 
+    def clean_year(self):
+        year = self.cleaned_data['year']
+        current_year = date.today().year
+        if year > current_year:
+            raise forms.ValidationError("Year cannot be in the future")
+        return year
 
     class Meta:
         model = Movie

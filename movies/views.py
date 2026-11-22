@@ -3,6 +3,9 @@ from django.views.generic import TemplateView, ListView, CreateView, DetailView,
 from movies.models import Movie, Genre, Actor, Director
 from movies.forms import MovieCreateForm, MovieDeleteForm, GenreCreateForm, ActorCreateForm, DirectorCreateForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework.generics import ListAPIView
+from movies.serializers import MovieSerializer
+from rest_framework.permissions import AllowAny
 
 
 class UserSubmissionMixin:
@@ -22,6 +25,15 @@ class MovieListView(ListView):
     def get_queryset(self):
         approved_movies = super( ).get_queryset().filter(status=Movie.APPROVED)
         return approved_movies
+
+
+class MyMoviesView(LoginRequiredMixin, ListView):
+    model = Movie
+    template_name = 'movies/my_movies.html'
+    context_object_name = 'movies'
+
+    def get_queryset(self):
+        return Movie.objects.filter(user=self.request.user)
 
 class MovieCreateView(LoginRequiredMixin, UserSubmissionMixin, CreateView):
     model = Movie
@@ -88,3 +100,7 @@ class ActorCreateView(LoginRequiredMixin, UserSubmissionMixin, CreateView):
     template_name = 'movies/actor_create.html'
     success_url = reverse_lazy('movie-list')
 
+class MovieListAPIView(ListAPIView):
+    queryset = Movie.objects.filter(status=Movie.APPROVED)
+    serializer_class = MovieSerializer
+    permission_classes = [AllowAny]

@@ -1,0 +1,82 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Movies | MyMovie{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/movie_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="movies-section">
+    <div class="container">
+        <h1>My Movies</h1>
+
+        <div class="movies-grid">
+            {% for movie in movies %}
+                <article class="movie-card">
+                    <div class="movie-poster">
+                        {% if movie.picture %}
+                            <img src="{{ movie.picture.url }}" alt="{{ movie.title }}">
+                        {% else %}
+                            <div class="no-poster">No poster available</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="movie-info">
+                        <h2>
+                            <a href="{% url 'movie-detail' movie.pk %}">
+                                {{ movie.title }}
+                            </a>
+                        </h2>
+
+                        <p class="movie-year">{{ movie.year }}</p>
+
+                        <p>
+                            <strong>Status:</strong>
+                            {{ movie.get_status_display }}
+                        </p>
+
+                        <p>
+                            <strong>Genre:</strong>
+                            {% for genre in movie.genre.all %}
+                                {{ genre.name }}{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                Not specified
+                            {% endfor %}
+                        </p>
+
+                        <p>
+                            <strong>Director:</strong>
+                            {% for director in movie.director.all %}
+                                {{ director.first_name }} {{ director.last_name }}{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                Not specified
+                            {% endfor %}
+                        </p>
+
+                        <p class="movie-description">
+                            {{ movie.description }}
+                        </p>
+
+                        <div class="movie-actions">
+                            <a href="{% url 'movie-update' movie.pk %}"
+                               class="button button-primary">
+                                Edit
+                            </a>
+
+                            <a href="{% url 'movie-delete' movie.pk %}"
+                               class="button button-outline">
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            {% empty %}
+                <p>You haven't added any movies yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
