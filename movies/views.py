@@ -1,3 +1,4 @@
+from django.db.models import Model
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView, DeleteView
 from movies.models import Movie, Genre, Actor, Director
@@ -39,7 +40,9 @@ class MovieCreateView(LoginRequiredMixin, UserSubmissionMixin, CreateView):
     model = Movie
     form_class = MovieCreateForm
     template_name = 'movies/movie_create.html'
-    success_url = reverse_lazy('home')
+
+    def get_success_url(self):
+        return reverse_lazy('movie-detail', kwargs={'pk': self.object.pk})
 
 
 class MovieDetailView(DetailView):
@@ -55,11 +58,14 @@ class MovieUpdateView(LoginRequiredMixin, UpdateView):
     model = Movie
     form_class = MovieCreateForm
     template_name = 'movies/movie_update.html'
-    success_url = reverse_lazy('home')
+
 
     def get_queryset(self):
         user_movies = super( ).get_queryset().filter(user=self.request.user)
         return user_movies
+
+    def get_success_url(self):
+        return reverse_lazy('movie-detail', kwargs={'pk': self.object.pk})
 
 
 class MovieDeleteView(LoginRequiredMixin, DeleteView):
@@ -86,6 +92,31 @@ class GenreCreateView(LoginRequiredMixin, UserSubmissionMixin, CreateView):
     form_class = GenreCreateForm
     template_name = 'movies/genre_create.html'
     success_url = reverse_lazy('movie-list')
+
+class GenreListView(LoginRequiredMixin, ListView):
+    model = Genre
+    template_name = 'movies/genre_list.html'
+    context_object_name = 'genres'
+
+    def get_queryset(self):
+        return Genre.objects.filter(user=self.request.user)
+
+class GenreUpdateView(LoginRequiredMixin, UpdateView):
+    model = Genre
+    form_class = GenreCreateForm
+    template_name = 'movies/genre_update.html'
+    success_url = reverse_lazy('genre-list')
+
+    def get_queryset(self):
+        return Genre.objects.filter(user=self.request.user)
+
+class GenreDeleteView(LoginRequiredMixin, DeleteView):
+    model = Genre
+    template_name = 'movies/genre_delete.html'
+    success_url = reverse_lazy('genre-list')
+
+    def get_queryset(self):
+        return Genre.objects.filter(user=self.request.user)
 
 
 class DirectorCreateView(LoginRequiredMixin, UserSubmissionMixin, CreateView):

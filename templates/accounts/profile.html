@@ -19,7 +19,7 @@
                          class="profile-picture">
                 {% else %}
                     <div class="profile-picture-placeholder">
-                        {{ profile.first_name|first|upper }}
+                        {{ profile.first_name|default:"?"|first|upper }}
                     </div>
                 {% endif %}
             </div>

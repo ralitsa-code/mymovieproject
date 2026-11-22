@@ -117,3 +117,19 @@
 .movie-form .add-genre-button:hover {
     background-color: #9333EA;
 }
+
+.movie-form .form-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.movie-form .form-actions button,
+.movie-form .form-actions a {
+    width: auto;
+    flex: 1;
+    margin-top: 15px;
+    padding: 13px;
+    text-align: center;
+    text-decoration: none;
+}

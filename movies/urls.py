@@ -14,4 +14,7 @@ urlpatterns = [
     path('movies/add_director/', views.DirectorCreateView.as_view(), name='director-create'),
     path('api/movies/', views.MovieListAPIView.as_view(), name='api-movie-list'),
     path('my-movies/', views.MyMoviesView.as_view(), name='my-movies'),
+    path('genres/', views.GenreListView.as_view(), name='genre-list'),
+    path('genres/<int:pk>/edit/', views.GenreUpdateView.as_view(), name='genre-update'),
+    path('genres/<int:pk>/delete/', views.GenreDeleteView.as_view(), name='genre-delete'),
 ]

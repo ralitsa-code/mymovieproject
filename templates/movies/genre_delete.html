@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Genre | MyMovie{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/movie_create.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="movie-form-section">
+        <form class="movie-form" method="post">
+            <div class="movie-form-container">
+                <h1>Delete Genre</h1>
+                <p>Are you sure you want to delete "{{ object.name }}"?</p>
+                {% csrf_token %}
+            </div>
+            <div class="form-actions">
+                <button type="submit">Confirm Delete</button>
+                <a href="{% url 'genre-list' %}" class="button button-primary">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </section>
+{% endblock %}

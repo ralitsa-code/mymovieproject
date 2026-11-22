@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Genres | MyMovie{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/movie_list.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="movies-section">
+        <div class="container">
+            <h1>My Genres</h1>
+
+            <div class="movies-grid">
+                {% for genre in genres %}
+                    <article class="movie-card">
+                        <div class="movie-info">
+                            <h2>{{ genre.name }}</h2>
+                            <a href="{% url 'genre-update' genre.pk %}" class="button button-primary">
+                                Edit
+                            </a>
+                            <a href="{% url 'genre-delete' genre.pk %}" class="button button-primary">
+                                Delete
+                            </a>
+                            <p>
+                                <strong>Status:</strong>
+                                {{ genre.get_status_display }}
+                            </p>
+                        </div>
+                    </article>
+                {% empty %}
+                    <p>You haven't added any genres yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
