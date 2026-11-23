@@ -42,7 +42,7 @@ class MovieCreateView(LoginRequiredMixin, UserSubmissionMixin, CreateView):
     template_name = 'movies/movie_create.html'
 
     def get_success_url(self):
-        return reverse_lazy('movie-detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('movie-list')
 
 
 class MovieDetailView(DetailView):

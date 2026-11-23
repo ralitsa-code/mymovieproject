@@ -1,4 +1,5 @@
 from django import forms
+from common.forms import DisabledFieldsMixin
 from reviews.models import Review
 
 
@@ -31,6 +32,10 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['review', 'rating']
+
+
+class ReviewDeleteForm(DisabledFieldsMixin, ReviewForm):
+    ...
 
 
 

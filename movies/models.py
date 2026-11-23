@@ -1,3 +1,6 @@
+from datetime import date
+
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -65,9 +68,13 @@ class Movie(ApprovalModel):
     year = models.PositiveIntegerField()
     user = models.ForeignKey(UserModel, on_delete=models.SET_NULL, null=True, related_name='movies')
 
+    def clean(self):
+        super().clean()
+        if self.year and self.year > date.today().year:
+            raise ValidationError({'year': 'Year cannot be in the future!'})
+
     def __str__(self):
         return self.title
-
 
 
 

@@ -133,3 +133,27 @@
     text-align: center;
     text-decoration: none;
 }
+
+/* Delete Movie - disabled fields */
+
+.movie-delete-form input:disabled,
+.movie-delete-form textarea:disabled,
+.movie-delete-form select:disabled {
+    opacity: 1;
+    color: #F5F5F5;
+    -webkit-text-fill-color: #F5F5F5;
+    background-color: #10121A;
+    cursor: not-allowed;
+}
+
+/* Multiple select options */
+
+.movie-delete-form select:disabled option {
+    color: #F5F5F5;
+    background-color: #10121A;
+}
+
+.movie-delete-form select:disabled option:checked {
+    color: #FFFFFF;
+    background-color: #A855F7;
+}

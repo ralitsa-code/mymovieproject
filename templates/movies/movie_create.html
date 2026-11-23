@@ -8,7 +8,7 @@
 {% block content %}
 
     <section class="movie-form-section">
-        <form class="movie-form" method="post" enctype="multipart/form-data">
+        <form class="movie-form" method="post" enctype="multipart/form-data" novalidate>
             <div class="movie-form-container">
                 <h1>Add a Movie</h1>
                 {% csrf_token %}

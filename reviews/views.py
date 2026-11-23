@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView
 from movies.models import Movie
-from reviews.forms import ReviewForm
+from reviews.forms import ReviewForm, ReviewDeleteForm
 from reviews.models import Review
 
 
@@ -37,6 +37,7 @@ class ReviewUpdateView(LoginRequiredMixin, UpdateView):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
         kwargs['movie'] = self.object.movie
+        kwargs['instance'] = self.object
         return kwargs
 
     def get_success_url(self):
@@ -47,11 +48,19 @@ class ReviewUpdateView(LoginRequiredMixin, UpdateView):
 
 class ReviewDeleteView(LoginRequiredMixin, DeleteView):
     model = Review
+    form_class = ReviewDeleteForm
     template_name = 'reviews/review_delete.html'
     pk_url_kwarg = 'review_id'
 
     def get_queryset(self):
         return super().get_queryset().filter(user=self.request.user)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        kwargs['movie'] = self.object.movie
+        kwargs['instance'] = self.object
+        return kwargs
 
     def get_success_url(self):
         return reverse_lazy('movie-detail', kwargs={'pk': self.object.movie.pk})

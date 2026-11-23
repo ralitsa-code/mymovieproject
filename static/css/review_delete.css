@@ -23,6 +23,48 @@
     line-height: 1.6;
 }
 
+/* Disabled review fields */
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.form-field label {
+    display: block;
+    color: #F5F5F5;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.form-field textarea,
+.form-field select {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #10121A;
+    color: #F5F5F5;
+    border: 1px solid #292D3D;
+    border-radius: 8px;
+    padding: 12px;
+    opacity: 1;
+}
+
+.form-field textarea {
+    min-height: 120px;
+    resize: none;
+}
+
+.form-field textarea:disabled,
+.form-field select:disabled {
+    cursor: not-allowed;
+}
+
+/* Confirmation buttons */
+
 .review-container form {
     margin-top: 30px;
 }
