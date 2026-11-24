@@ -49,7 +49,7 @@ class MovieCreateForm(forms.ModelForm):
 
         error_messages = {
             'title': {
-                'required': 'Please enter a movie title!!!',
+                'required': 'Please enter a movie title!',
             },
             'description': {
                 'required': 'Please enter a movie description.',
@@ -65,19 +65,74 @@ class MovieDeleteForm(DisabledFieldsMixin, MovieCreateForm):
 
 
 class GenreCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs['placeholder'] = 'Enter genre name'
+
     class Meta:
         model = Genre
         fields = ['name']
 
+        labels = {
+            'name' : 'Genre Name',
+        }
+
+
+
+        error_messages = {
+            'name': {
+                'required': 'Please enter a genre name!'
+            },
+        }
+
 
 class ActorCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].widget.attrs['placeholder'] = 'Enter the first name of the actor'
+        self.fields['last_name'].widget.attrs['placeholder'] = 'Enter the last name of the actor'
+
     class Meta:
         model = Actor
         fields = ['first_name', 'last_name']
 
+        labels = {
+            'first_name' : 'First Name',
+            'last_name' : 'Last Name',
+        }
+
+        error_messages = {
+            'first_name': {
+                'required': 'Please enter the first name of the actor!'
+            },
+            'last_name': {
+                'required': 'Please enter the last name of the actor!'
+            }
+        }
+
 
 class DirectorCreateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].widget.attrs['placeholder'] = 'Enter the first name of the director'
+        self.fields['last_name'].widget.attrs['placeholder'] = 'Enter the last name of the director'
+
     class Meta:
         model = Director
         fields = ['first_name', 'last_name']
+
+        labels = {
+            'first_name' : 'First Name',
+            'last_name' : 'Last Name',
+        }
+
+
+        error_messages = {
+            'first_name': {
+                'required': 'Please enter the first name of the director!'
+            },
+            'last_name' : {
+                'required': 'Please enter the last name of the director!'
+            }
+        }
 

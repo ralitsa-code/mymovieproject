@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
     <section class="movie-form-section">
-        <form class="movie-form" method="post">
+        <form class="movie-form" method="post" novalidate>
             <div class="movie-form-container">
                 <h1>Add an Actor</h1>
                 {% csrf_token %}
