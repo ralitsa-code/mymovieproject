@@ -86,3 +86,10 @@
     gap: 12px;
     margin: 20px 0;
 }
+
+.rating-stars {
+    color: #A855F7;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+

@@ -28,10 +28,12 @@ urlpatterns = [
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
+    path('', include('common.urls')),
     path('', include('movies.urls')),
     path('', include('reviews.urls')),
     path('favorites/', include('favorites.urls')),
     path('watchlist/', include('watchlist.urls')),
+
 ]
 
 handler404 = 'mymovie.views.page_not_found'

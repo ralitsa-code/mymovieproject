@@ -1,5 +1,5 @@
 from django.db.models import Model
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView, DeleteView
 from movies.models import Movie, Genre, Actor, Director
 from movies.forms import MovieCreateForm, MovieDeleteForm, GenreCreateForm, ActorCreateForm, DirectorCreateForm
@@ -42,7 +42,7 @@ class MovieCreateView(LoginRequiredMixin, UserSubmissionMixin, CreateView):
     template_name = 'movies/movie_create.html'
 
     def get_success_url(self):
-        return reverse_lazy('movie-list')
+        return f"{reverse('submission_success')}?type=movie"
 
 
 class MovieDetailView(DetailView):
@@ -72,7 +72,7 @@ class MovieDeleteView(LoginRequiredMixin, DeleteView):
     model = Movie
     form_class = MovieDeleteForm
     template_name = 'movies/movie_delete.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('my-movies')
 
 
     def get_queryset(self):
@@ -91,7 +91,9 @@ class GenreCreateView(LoginRequiredMixin, UserSubmissionMixin, CreateView):
     model = Genre
     form_class = GenreCreateForm
     template_name = 'movies/genre_create.html'
-    success_url = reverse_lazy('movie-list')
+
+    def get_success_url(self):
+        return f"{reverse('submission_success')}?type=genre"
 
 class GenreListView(LoginRequiredMixin, ListView):
     model = Genre
@@ -123,13 +125,17 @@ class DirectorCreateView(LoginRequiredMixin, UserSubmissionMixin, CreateView):
     model = Director
     form_class = DirectorCreateForm
     template_name = 'movies/director_create.html'
-    success_url = reverse_lazy('movie-list')
+
+    def get_success_url(self):
+        return f"{reverse('submission_success')}?type=director"
 
 class ActorCreateView(LoginRequiredMixin, UserSubmissionMixin, CreateView):
     model = Actor
     form_class = ActorCreateForm
     template_name = 'movies/actor_create.html'
-    success_url = reverse_lazy('movie-list')
+
+    def get_success_url(self):
+        return f"{reverse('submission_success')}?type=actor"
 
 class MovieListAPIView(ListAPIView):
     queryset = Movie.objects.filter(status=Movie.APPROVED)

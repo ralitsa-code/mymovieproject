@@ -13,64 +13,11 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-
-<header class="site-header">
-    <div class="container header-content">
-
-        <a href="{% url 'home' %}" class="logo">
-            <span class="logo-icon">▶</span>
-            MyMovie
-        </a>
-
-        <nav class="main-nav">
-            <a href="{% url 'home' %}">Home</a>
-            <a href="{% url 'movie-list' %}">Movies</a>
-        </nav>
-
-        <div class="header-actions">
-            {% if user.is_authenticated %}
-                <a href="{% url 'profile' %}">My Profile</a>
-                <a href="{% url 'my-movies' %}">My Movies</a>
-                <a href="{% url 'genre-list' %}">My Genres</a>
-                <a href="{% url 'favorites' %}">Favorites</a>
-                <a href="{% url 'watchlist' %}">Watchlist</a>
-                <a href="{% url 'movie-create' %}">Add Movie</a>
-
-                <span class="welcome-user">
-                    Hello, {{ user.email }}!
-                </span>
-
-                <form method="post" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button type="submit" class="button button-outline">
-                        Logout
-                    </button>
-                </form>
-            {% else %}
-                <a href="{% url 'login' %}" class="button button-outline">
-                    Login
-                </a>
-
-                <a href="{% url 'register' %}" class="button button-primary">
-                    Register
-                </a>
-            {% endif %}
-        </div>
-
-    </div>
-</header>
-
+{% include 'partials/header.html' %}
 <main>
     {% block content %}
     {% endblock %}
 </main>
-
-<footer class="site-footer">
-    <div class="container">
-        <p>&copy; {% now "Y" %} MyMovie. All rights reserved.</p>
-        <p>Share your love for movies.</p>
-    </div>
-</footer>
-
+{% include 'partials/footer.html' %}
 </body>
 </html>

@@ -9,18 +9,25 @@
 
 {% block content %}
     <section class="movie-form-section">
-    <form class="movie-form movie-delete-form" method="post">
-        <div class="movie-form-container">
-            <h1>Delete Movie</h1>
+        <form class="movie-form movie-delete-form" method="post">
+            <div class="movie-form-container">
+                <h1>Delete Movie</h1>
 
-            {% csrf_token %}
-            {{ form.as_p }}
+                {% csrf_token %}
+                {{ form.as_p }}
 
-            <p>Are you sure you want to delete this movie?</p>
-        </div>
+                <p>Are you sure you want to delete this movie?</p>
+            </div>
 
-        <button type="submit">Confirm Delete</button>
-    </form>
-</section>
+            <div class="form-actions">
+                <button type="submit">Confirm Delete</button>
+
+                <a href="{% url 'movie-detail' pk=object.pk %}"
+                   class="button button-outline">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </section>
 
 {% endblock %}

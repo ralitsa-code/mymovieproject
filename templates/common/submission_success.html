@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/submission_success.css' %}">
+{% endblock %}
+
+{% block title %}Submission Successful | MyMovie{% endblock %}
+
+{% block content %}
+    <section class="submission-success-section">
+        <div class="submission-success-container">
+            <div class="success-icon">✓</div>
+
+            <h1>Submission Successful!</h1>
+
+            <p>
+                Your {{ submission_type }} submission has been received successfully.
+            </p>
+
+            <h2>What happens next?</h2>
+
+            <p>
+                Your submission is now pending approval.
+                Our team will review it before it becomes publicly available on MyMovie.
+            </p>
+
+            <span class="submission-status">Pending Approval</span>
+
+            <a href="{% url 'home' %}" class="button button-primary">
+                Back to Home
+            </a>
+        </div>
+    </section>
+{% endblock %}

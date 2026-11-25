@@ -1,7 +1,7 @@
 
 {% extends 'base.html' %}
 {% load static %}
-
+{% load review_filters %}
 {% block title %}{{ movie.title }} | MyMovie{% endblock %}
 
 {% block extra_css %}
@@ -74,7 +74,7 @@
             {% for review in movie.review_set.all %}
                 <div class="review-card">
                     <h3>{{ review.user.email }}</h3>
-                    <p>Rating: {{ review.rating }}/5</p>
+                    <p>Rating: <span class="rating-stars">{{ review.rating|rating_stars }}</span></p>
                     <p>{{ review.review }}</p>
 
                     {% if user.is_authenticated and review.user == user %}
