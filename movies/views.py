@@ -1,4 +1,4 @@
-from django.db.models import Model
+from django.db.models import Avg
 from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView, DeleteView
 from movies.models import Movie, Genre, Actor, Director
@@ -17,6 +17,24 @@ class UserSubmissionMixin:
 
 class HomeView(TemplateView):
     template_name = 'movies/home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['movies'] = (
+            Movie.objects
+            .filter(status=Movie.APPROVED)
+            .order_by('-id')[:3]
+        )
+
+        context['top_movies'] = (
+            Movie.objects
+            .filter(status=Movie.APPROVED, review__isnull=False)
+            .annotate(avg_rating = Avg('review__rating'))
+            .order_by('-avg_rating')[:3]
+        )
+
+        return context
 
 class MovieListView(ListView):
     model = Movie

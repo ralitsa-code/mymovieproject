@@ -132,10 +132,11 @@ main {
     margin-top: 8px;
 }
 
+
 /* Hero Section */
 
 .hero {
-    padding: 100px 0;
+    padding: 45px 0;
     background: linear-gradient(135deg, #181B27, #25203B);
 }
 
@@ -153,9 +154,9 @@ main {
 }
 
 .hero h1 {
-    font-size: 52px;
+    font-size: 42px;
     line-height: 1.2;
-    margin: 25px 0;
+    margin: 15px 0;
 }
 
 .hero h1 span {
@@ -164,8 +165,8 @@ main {
 
 .hero p {
     color: #B8BBC8;
-    font-size: 17px;
-    line-height: 1.7;
+    font-size: 15px;
+    line-height: 1.5;
     max-width: 650px;
     margin: 0 auto;
 }
@@ -174,13 +175,14 @@ main {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-top: 35px;
+    margin-top: 20px;
 }
+
 
 /* Movies Section */
 
 .movies-section {
-    padding: 70px 0;
+    padding: 35px 0;
 }
 
 .section-heading {

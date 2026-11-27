@@ -35,6 +35,7 @@
 </section>
 
 
+<!-- Recently Shared Movies -->
 <section class="movies-section">
     <div class="container">
 
@@ -54,8 +55,8 @@
             {% for movie in movies %}
                 <article class="movie-card">
 
-                    {% if movie.poster %}
-                        <img src="{{ movie.poster.url }}"
+                    {% if movie.picture %}
+                        <img src="{{ movie.picture.url }}"
                              alt="{{ movie.title }}"
                              class="movie-poster">
                     {% else %}
@@ -65,7 +66,7 @@
                     {% endif %}
 
                     <div class="movie-info">
-                        <h3>{{ movie.title }}</h3>
+                        <h3><a href="{% url 'movie-detail' movie.pk %}">{{ movie.title }}</a></h3>
 
                         {% if movie.year %}
                             <span class="movie-year">{{ movie.year }}</span>
@@ -80,6 +81,61 @@
                 <div class="empty-state">
                     <h3>No movies shared yet.</h3>
                     <p>Be the first to share your favorite movie!</p>
+                </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Top Rated Movies -->
+<section class="movies-section">
+    <div class="container">
+
+        <div class="section-heading">
+            <div>
+                <span class="section-label">COMMUNITY FAVORITES</span>
+                <h2>Top Rated Movies</h2>
+            </div>
+        </div>
+
+        <div class="movies-grid">
+
+            {% for movie in top_movies %}
+                <article class="movie-card">
+
+                    {% if movie.picture %}
+                        <img src="{{ movie.picture.url }}"
+                             alt="{{ movie.title  }}"
+                             class="movie-poster">
+                    {% else %}
+                        <div class="movie-poster-placeholder">
+                            <span>▶</span>
+                        </div>
+                    {% endif %}
+
+                    <div class="movie-info">
+                        <h3><a href="{% url 'movie-detail' movie.pk %}">{{ movie.title }}</a></h3>
+
+                        {% if movie.year %}
+                            <span class="movie-year">{{ movie.year }}</span>
+                        {% endif %}
+
+                        <p>{{ movie.description|truncatewords:20 }}</p>
+
+                        <span class="movie-rating">
+                            ★ {{ movie.avg_rating|floatformat:1 }} / 5
+                        </span>
+                    </div>
+
+                </article>
+
+            {% empty %}
+                <div class="empty-state">
+                    <h3>No rated movies yet.</h3>
+                    <p>Be the first to rate a movie!</p>
                 </div>
             {% endfor %}
 
